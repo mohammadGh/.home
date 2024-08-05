@@ -1,3 +1,4 @@
 *
 !.gitignore
 !.bash_aliases
+!.xray_config.json

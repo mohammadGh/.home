@@ -1,0 +1,242 @@
+{
+    "dns": {
+        "hosts": {
+            "domain:googleapis.cn": "googleapis.com"
+        },
+        "servers": [
+            "1.1.1.1"
+        ]
+    },
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "port": 10101,
+            "protocol": "socks",
+            "settings": {
+                "auth": "noauth",
+                "udp": true,
+                "userLevel": 8
+            },
+            "sniffing": {
+                "destOverride": [
+                    "http",
+                    "tls"
+                ],
+                "enabled": true
+            },
+            "tag": "socks-10101"
+        },
+        {
+            "listen": "127.0.0.1",
+            "port": 10102,
+            "protocol": "http",
+            "settings": {
+                "userLevel": 8
+            },
+            "tag": "http-10102"
+        },
+
+
+        {
+            "listen": "127.0.0.1",
+            "port": 10201,
+            "protocol": "socks",
+            "settings": {
+                "auth": "noauth",
+                "udp": true,
+                "userLevel": 8
+            },
+            "sniffing": {
+                "destOverride": [
+                    "http",
+                    "tls"
+                ],
+                "enabled": true
+            },
+            "tag": "socks-10201"
+        },
+        {
+            "listen": "127.0.0.1",
+            "port": 10202,
+            "protocol": "http",
+            "settings": {
+                "userLevel": 8
+            },
+            "tag": "http-10202"
+        },
+
+
+
+        {
+            "listen": "127.0.0.1",
+            "port": 10301,
+            "protocol": "socks",
+            "settings": {
+                "auth": "noauth",
+                "udp": true,
+                "userLevel": 8
+            },
+            "sniffing": {
+                "destOverride": [
+                    "http",
+                    "tls"
+                ],
+                "enabled": true
+            },
+            "tag": "socks-10301"
+        },
+        {
+            "listen": "127.0.0.1",
+            "port": 10302,
+            "protocol": "http",
+            "settings": {
+                "userLevel": 8
+            },
+            "tag": "http-10302"
+        }
+    ],
+    "log": {
+        "loglevel": "warning"
+    },
+
+    
+    "outbounds": [
+
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "185.143.233.5",
+                        "port": 443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "",
+                                "id": "096fc6e2-e56d-4694-bf47-2ad18fe9e293",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "ws",
+                "security": "tls",
+                "tlsSettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "chrome",
+                    "publicKey": "",
+                    "serverName": "skyroom.online",
+                    "shortId": "",
+                    "show": false,
+                    "spiderX": ""
+                },
+                "wsSettings": {
+                    "headers": {
+                        "Host": "skyroom.online.oadeflantrogmnl8.mydpy.com"
+                    },
+                    "path": "/"
+                }
+            },
+            "tag": "proxy1"
+        },
+
+
+        {
+            "mux": {
+              "concurrency": -1,
+              "enabled": false,
+              "xudpConcurrency": 8,
+              "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "185.143.234.120",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "704cd598-3a00-4331-9234-1e7854e10921",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "tlsSettings": {
+                "allowInsecure": false,
+                "fingerprint": "randomized",
+                "publicKey": "",
+                "serverName": "anten.ir.wnticacenide9.iranbaran.com",
+                "shortId": "",
+                "show": false,
+                "spiderX": ""
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "anten.ir.wnticacenide9.iranbaran.com"
+                },
+                "path": "/?ed=FemzQ8fB4I"
+              }
+            },
+            "tag": "proxy2"
+          },
+
+        
+        {
+            "protocol": "freedom",
+            "settings": {},
+            "tag": "direct"
+        },
+
+
+        {
+            "protocol": "blackhole",
+            "settings": {
+                "response": {
+                    "type": "http"
+                }
+            },
+            "tag": "block"
+        }
+
+    ],
+
+
+    "routing": {
+        "domainStrategy": "IPIfNonMatch",
+        "rules": [
+            {
+                "inboundTag": [
+                    "socks-10101",
+                    "http-10102"
+                ],
+                "outboundTag": "proxy1",
+                "type": "field"
+            },
+            {
+                "inboundTag": [
+                    "socks-10201",
+                    "http-10202"
+                ],
+                "outboundTag": "proxy2",
+                "type": "field"
+            }
+        ]
+    }
+}
